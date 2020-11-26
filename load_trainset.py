@@ -13,6 +13,10 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
     '''
     batchsize = batch_size
     n_exp = int(batchsize / 2)
+    
+    features = 4096
+    if use_i3d:
+        features = 1024
 
     # Number of label_1 (normal) and label_0 (abnormal) videos in training set 
     Num_abnormal = num_abnorm  
@@ -38,11 +42,11 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
         VideoPath = os.path.join(Abnormal_Features_Path, All_Videos0[iv])
         f = open(VideoPath, "r")
         words = f.read().split()
-        num_feat = len(words) / 4096
+        num_feat = len(words) / features
         count = -1
         VideoFeatues = []
         for feat in range(0, int(num_feat)):
-            feat_row1 = np.float32(words[feat * 4096:feat * 4096 + 4096])
+            feat_row1 = np.float32(words[feat * features:feat * features + features])
             count = count + 1
             if count == 0:
                 VideoFeatues = feat_row1
@@ -53,7 +57,7 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
             AllFeatures = VideoFeatues
         if Video_count > 0:
             AllFeatures = np.vstack((AllFeatures, VideoFeatues))
-            # AllFeatures: array.shape = (32*30, 4096)
+            # AllFeatures: array.shape = (32*30, 4096 or 1024)
     print(" >> Abnormal Features loaded")
 
     print("Loading Normal videos' features...")
@@ -68,11 +72,11 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
         f = open(VideoPath, "r")
         words = f.read().split()
         feat_row1 = np.array([])
-        num_feat = len(words) / 4096
+        num_feat = len(words) / features
         count = -1
         VideoFeatues = []
         for feat in range(0, int(num_feat)):
-            feat_row1 = np.float32(words[feat * 4096:feat * 4096 + 4096])
+            feat_row1 = np.float32(words[feat * features:feat * features + features])
             count = count + 1
             if count == 0:
                 VideoFeatues = feat_row1
@@ -80,7 +84,7 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
                 VideoFeatues = np.vstack((VideoFeatues, feat_row1))
             feat_row1 = []
         AllFeatures = np.vstack((AllFeatures, VideoFeatues))
-        # AllFeatures: array.shape = (32*60, 4096) 
+        # AllFeatures: array.shape = (32*60, 4096 or 1024) 
     print(" >> Normal Features loaded")
 
     AllLabels = np.zeros(32 * batchsize, dtype='uint8')
