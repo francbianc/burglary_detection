@@ -35,7 +35,7 @@ pip install -r requirements.txt
     To run, it needs the following files: 
       1. `loss_function.py` = the loss function defined by Sultani, Chen and Shah. 
       2. `load_trainset.py` = function to load extracted features in a batch of 60 videos.
-      3. `classifier.py` = the architecture of the training model (4 possibilities: NO_LSTM-C3D, NO_LSTM-I3D, LSTM-C3D, LSTM-I3D).
+      3. `classifier.py` = the architecture of the training model (3 possibilities: NO_LSTM-C3D, NO_LSTM-I3D, LSTM-C3D).
   
   Before running train.py, according to the experiment you want to implement, change the following variables in:
   >> configuration.py
