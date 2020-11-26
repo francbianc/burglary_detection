@@ -33,26 +33,35 @@ path_all_features = '/home/3022790/UCF_Crimes/Videos/'
 train_exp_name = 'Experiment ...'      
 
 ## Choose which training-test set you prefer (3 possibilities)
-## Sultani (without big videos)
-#train_0_path = './training_splits/Sultani/train_names810_sultani_class0.txt'
-#train_1_path = './training_splits/Sultani/train_names800_sultani_class1.txt'
-#num_0 = 810
-#num_1 = 800
-#Ann_path = './training_splits/Sultani/test_annot310_sultani.txt'
-#NamesAnn_path = './training_splits/Sultani/test_names310_sultani.txt'
+sul = True
+exp1 = False
+exp2 = False
 
-## Experiment 1
-#train_0_path = './training_splits/Experiment1/train_names750_exp1_class0.txt'
-#train_1_path = './training_splits/Experiment1/train_names750_exp1_class1_nobig.txt'
-#num_0 = 750
-#num_1 = 750
-#Ann_path = './training_splits/Experiment1/test_annot310_exp1.txt'
-#NamesAnn_path = './training_splits/Experiment1/test_names310_exp1.txt'
+### Sultani (without big videos)
+if sul: 
+    train_0_path = './training_splits/Sultani/train_names810_sultani_class0.txt'
+    train_1_path = './training_splits/Sultani/train_names800_sultani_class1.txt'
+    num_0 = 810
+    num_1 = 800
+    Ann_path = './training_splits/Sultani/test_annot310_sultani.txt'
+    NamesAnn_path = './training_splits/Sultani/test_names310_sultani.txt'
 
-## Experiment 2
-train_0_path = './training_splits/Experiment2/train_names750_exp2_class0.txt'
-train_1_path = './training_splits/Experiment2/train_names750_exp2_class1_nobig.txt'
-num_0 = 750
-num_1 = 750
+### Experiment 1
+if exp1:
+    train_0_path = './training_splits/Experiment1/train_names750_exp1_class0.txt'
+    train_1_path = './training_splits/Experiment1/train_names750_exp1_class1_nobig.txt'
+    num_0 = 750
+    num_1 = 750
+    Ann_path = './training_splits/Experiment1/test_annot310_exp1.txt'
+    NamesAnn_path = './training_splits/Experiment1/test_names310_exp1.txt'
+
+### Experiment 2
+if exp2: 
+    train_0_path = './training_splits/Experiment2/train_names750_exp2_class0.txt'
+    train_1_path = './training_splits/Experiment2/train_names750_exp2_class1_nobig.txt'
+    num_0 = 750
+    num_1 = 750
+    Ann_path = './training_splits/Experiment2/test_annot310_exp2.txt'
+    NamesAnn_path = './training_splits/Experiment2/test_names310_exp2.txt'
 Ann_path = './training_splits/Experiment2/test_annot310_exp2.txt'
 NamesAnn_path = './training_splits/Experiment2/test_names310_exp2.txt'
