@@ -63,5 +63,3 @@ if exp2:
     num_1 = 750
     Ann_path = './training_splits/Experiment2/test_annot310_exp2.txt'
     NamesAnn_path = './training_splits/Experiment2/test_names310_exp2.txt'
-Ann_path = './training_splits/Experiment2/test_annot310_exp2.txt'
-NamesAnn_path = './training_splits/Experiment2/test_names310_exp2.txt'
