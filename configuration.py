@@ -6,19 +6,21 @@ I3D_path = './I3D_Features'
 
 trained_folder = './trained_models/train_'
 score_path = './Scores'
+gif_path = './GIF'
 all_ann_path = './training_splits/Sultani/test_annot310_sultani.txt'
+filter_path = './Filters_FeatureMaps'
 
 # ----- MODIFY THESE VARIABLES
 use_lstm = True
-use_i3d = True
+use_i3d = False
 
 ## Weights of the pre-trained classifier (10 possibilities)
 classifier_model_json = './trained_models/model.json'
 #classifier_model_weigts = './trained_models/weights_L1L2.mat'
 #classifier_model_weigts = './trained_models/train_exp1_C3D/weights_exp1_C3D.mat'
 #classifier_model_weigts = './trained_models/train_exp2_C3D/weights_exp2_C3D.mat'
-#classifier_model_weigts = './trained_models/train_exp1_128LSTM_C3D/weights_exp1_128LSTM_C3D.mat'
-classifier_model_weigts = './trained_models/train_exp2_128LSTM_C3D/weights_exp2_128LSTM_C3D.mat'
+classifier_model_weigts = './trained_models/train_exp1_128LSTM_C3D/weights_exp1_128LSTM_C3D.mat'
+#classifier_model_weigts = './trained_models/train_exp2_128LSTM_C3D/weights_exp2_128LSTM_C3D.mat'
 #classifier_model_weigts = './trained_models/train_exp1_I3D/weights_exp1_I3D.mat'
 #classifier_model_weigts = './trained_models/train_exp2_I3D/weights_exp2_I3D.mat'
 #classifier_model_weigts = './trained_models/train_sul_C3D/weights_sul_C3D.mat'
@@ -37,7 +39,7 @@ sul = True
 exp1 = False
 exp2 = False
 
-### Sultani (without big videos)
+## Sultani (without big videos)
 if sul: 
     train_0_path = './training_splits/Sultani/train_names810_sultani_class0.txt'
     train_1_path = './training_splits/Sultani/train_names800_sultani_class1.txt'
@@ -46,7 +48,7 @@ if sul:
     Ann_path = './training_splits/Sultani/test_annot310_sultani.txt'
     NamesAnn_path = './training_splits/Sultani/test_names310_sultani.txt'
 
-### Experiment 1
+## Experiment 1
 if exp1:
     train_0_path = './training_splits/Experiment1/train_names750_exp1_class0.txt'
     train_1_path = './training_splits/Experiment1/train_names750_exp1_class1_nobig.txt'
@@ -55,7 +57,7 @@ if exp1:
     Ann_path = './training_splits/Experiment1/test_annot310_exp1.txt'
     NamesAnn_path = './training_splits/Experiment1/test_names310_exp1.txt'
 
-### Experiment 2
+## Experiment 2
 if exp2: 
     train_0_path = './training_splits/Experiment2/train_names750_exp2_class0.txt'
     train_1_path = './training_splits/Experiment2/train_names750_exp2_class1_nobig.txt'

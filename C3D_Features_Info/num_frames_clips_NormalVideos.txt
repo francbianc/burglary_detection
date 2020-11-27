@@ -1,0 +1,1 @@
+[('./Input/Normal_Videos_881_x264.mp4', 224, 14), ('./Input/Caliano_2.mp4', 1413, 89), ('./Input/Burglary018_x264.mp4', 1125, 71), ('./Input/Assault011_x264.mp4', 2288, 143)]

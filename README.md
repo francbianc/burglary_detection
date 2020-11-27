@@ -67,7 +67,7 @@ pip install -r requirements.txt
   - *cfg.use_i3d*: input features have been extracted with I3D, hence dim = (32, 1024) instead of (32, 4096)
   Results (predictions for test videos) are saved into the `Scores` folder.  
 
-  If you use as test set the entire *UCF_Crimes* test set, you have to run the `test_server.py` code. Before running the code, choose which classifier model you want to use by changing the following variables in the configuration.py file:
+  If you use as test set the entire *UCF_Crimes* test set, you have to run the test_server.py code. Before running the code, choose which classifier model you want to use by changing the following variables in the configuration.py file:
   - *cfg.classifier_model_weigts*
   - *cfg.use_lstm* 
   - *cfg.use_i3d* 
@@ -93,5 +93,19 @@ pip install -r requirements.txt
   - *cfg.path_all_features*
   - *cfg.NamesAnn_path*
   - *cfg.Ann_path*: directory of a .txt file containing the names of test videos and their temporal annotations
-  Results (AUC value) are printed.
-    
+  Results are printed.
+
+
+5. **GIF**
+**From predictions ad `.txt` to video gif as `.gif`**
+  * Using predicted burglary-scores to plot them against the corresponding video's frames:
+    - `GIF.py` = create a gif containing the original test video and its burglary-score trend
+
+  Choose a test video, make sure it's in the `Input` folder and its prediction .txt file is in `Score`. Run GIF.py. Results (gif of video and its corresponding scores) are saved in the `GIF` folder. 
+
+
+6. **VISUALIZE FILTERS / FEATURE MAPS**
+**Visualize filters and feature maps of C3D convolutional layers**
+  * Filters: choose a convolutional layer and select the number of the filter, specifying which are the units the filter is going to connect. These values are the inputs of the `plot_filter()` function in `c3d_filters_featmaps.ipynb`. Results (plot of one fiter) are displayed directly in the notebook. 
+
+  * Feature maps: choose a video, save its path in the "video_path" variable and if you want to visualize a specific clip, save its number in the "num_clip" variable. If you don't change this variable, the clip would be randomly selected. The clip and the corresponding 16 frames would be saved in a subfolder of `Filters_FeatureMaps`. Then, choose the number of the unit in the first convolutional layer (there are 64 units) and the number of the frame (among the 16 frames of the clip). These last two values are the inputs of the `plot_featmap()` function in `c3d_filters_featmaps.ipynb`. Results (plot of one feature map) are displayed directly in the notebook. 

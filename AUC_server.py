@@ -2,6 +2,7 @@ import numpy as np
 import os
 from utils.visualization_util import *
 from sklearn import metrics
+import configuration as cfg
 
 # PATHS: cfg.path_all_features, cfg.Ann_path, cfg.NamesAnn_path, './num_frames.txt'
 # VARIABLES: cfg.train_exp_name, cfg.use_i3d
@@ -21,7 +22,6 @@ all_annotations = [line.strip().split() for line in open(cfg.Ann_path, 'r')]
 all_annotations_dict = {l[0].split('.')[0]:l[-4:] for l in all_annotations}
 
 all_frames = [i.strip().split() for i in open('./num_frames.txt', 'r')]
-assert [len(l) == 2 for l in all_frames]
 all_frames_dict = {l[0]:l[1:] for l in all_frames}
 
 all_ann_names = [line.strip().replace('.mp4', '.txt').replace('/', '_Features/') for line in open(cfg.NamesAnn_path, 'r')]
@@ -45,8 +45,8 @@ for filename in all_ann_names:
       Ann = all_annotations_dict[name] 
       # list of 4 str (each str contains 1 annot as str)
 
-      # read video
-      num_frames = all_frames_dict[filename]
+      num_frames = int(all_frames_dict[filename][0])
+      # integer
       
       # assign to each frame the anomaly score of the feature it belongs to
       num_features = len(C3D_file)     # must be 32
@@ -60,21 +60,27 @@ for filename in all_ann_names:
          p_c = p_c + 1
          ss = Thirty2_shots[c_shots]
          ee = Thirty2_shots[n_shots] - 1
-         print('ss:', ss, 'ee:', ee)
-         print('c_shots:', c_shots, 'n_shots:', n_shots)
+         #print('ss:', ss, 'ee:', ee)
+         #print('c_shots:', c_shots, 'n_shots:', n_shots)
 
          if c_shots == len(Thirty2_shots):
             ee=Thirty2_shots[n_shots]
 
-         if ee < ss:
+         if ee<ss:
             Detection_score_32shots[(int(ss))*16:(int(ss))*16+16+1] = score[p_c]
-            print(ee < ss)
+            #print(ee < ss)
          else:
             Detection_score_32shots[(int(ss))*16:(int(ee))*16+16+1] = score[p_c]
-            print(ee > ss)
+            #print(ee > ss)
 
-      Final_score = np.append(Detection_score_32shots, np.repeat(Detection_score_32shots[-1], [num_frames-len(Detection_score_32shots)]))
-      GT = np.zeros(num_frames)
+      print(num_frames)
+      print(len(Detection_score_32shots))
+      if num_frames > len(Detection_score_32shots):
+         Final_score = np.append(Detection_score_32shots, np.repeat(Detection_score_32shots[-1], [num_frames-len(Detection_score_32shots)]))
+         GT=np.zeros(num_frames)
+      else:
+         Final_score = Detection_score_32shots
+         GT=np.zeros(len(Detection_score_32shots))
 
       # check the temporal annotation
       t_txt = [int(i) for i in Ann]

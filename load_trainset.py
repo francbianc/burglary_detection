@@ -33,11 +33,11 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
     AllFeatures = []
     Video_count = -1
 
-    if use_i3d: 
+    if use_i3d:
         dim = 1024
     else: 
-        dim = 4096
-    
+        dim = 4096 
+
     for iv in Abnor_list_iter:
         Video_count = Video_count + 1
         VideoPath = os.path.join(Abnormal_Features_Path, All_Videos0[iv])
