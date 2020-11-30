@@ -7,11 +7,22 @@ from utils.visualization_util import *
 # VARIABLES: cfg.use_i3d, cfg.use_lstm
 
 def run_onlyTest():
+    """
+    Predict if a video segment is normal or anomalous by calculating the anomaly score for each of the 32 temporal segments of the video bag.
+    Predictions are made using a pre-trained networks built and trained according to the specifications in configuration.py
+
+    Returns
+    -----------
+    Save predictions of each video as .txt files in a dedicated folder
+    """
+
+    # features can be extracted either with I3D or C3D network
     if cfg.use_i3d: 
         input_feat_path = cfg.I3D_path
     else: 
         input_feat_path = cfg.C3D_path
-    
+
+    # loop over all the videos in the test set    
     for filename in os.listdir(input_feat_path):
         if filename.endswith('.txt'):
             video_features_name = os.path.join(input_feat_path, filename)
@@ -24,7 +35,7 @@ def run_onlyTest():
             if cfg.use_lstm:
                 rgb_feature_bag = np.reshape(rgb_feature_bag, newshape=(32,1,dim))
                 
-            # initialize plain vanilla classifier 
+            # initialize classifier 
             classifier_model = build_classifier_model()
 
             # classify using the pre-trained classifier model: len(predictions) = 32
@@ -32,6 +43,7 @@ def run_onlyTest():
             predictions = np.array(predictions).squeeze()
             print(predictions)
 
+            # save the predictions for each video for future use
             save_path = os.path.join(cfg.score_path, name + '.txt')
             np.savetxt(save_path, predictions)
 
