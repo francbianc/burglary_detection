@@ -10,6 +10,9 @@ Implementation of a deep-learning model to detect burglary in surveillance video
 pip install -r requirements.txt
 ```
 
+## Dataset
+...
+
 ## How to use this repo?
 
 1. **FEATURE EXTRACTION**     
@@ -111,5 +114,3 @@ pip install -r requirements.txt
 
   * Feature maps: choose a video, save its path in the "video_path" variable and if you want to visualize a specific clip, save its number in the "num_clip" variable. If you don't change this variable, the clip would be randomly selected. The clip and the corresponding 16 frames would be saved in a subfolder of `Filters_FeatureMaps`. Then, choose the number of the unit in the first convolutional layer (there are 64 units) and the number of the frame (among the 16 frames of the clip). These last two values are the inputs of the `plot_featmap()` function in `c3d_filters_featmaps.ipynb`. Results (plot of one feature map) are displayed directly in the notebook. 
 
-  ## Training set creation
-  ...
