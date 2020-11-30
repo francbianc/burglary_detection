@@ -11,7 +11,7 @@ all_ann_path = './training_splits/Sultani/test_annot310_sultani.txt'
 filter_path = './Filters_FeatureMaps'
 
 # ----- MODIFY THESE VARIABLES
-use_lstm = True
+use_lstm = False
 use_i3d = False
 
 ## Weights of the pre-trained classifier (10 possibilities)
@@ -19,7 +19,7 @@ classifier_model_json = './trained_models/model.json'
 #classifier_model_weigts = './trained_models/weights_L1L2.mat'
 #classifier_model_weigts = './trained_models/train_exp1_C3D/weights_exp1_C3D.mat'
 #classifier_model_weigts = './trained_models/train_exp2_C3D/weights_exp2_C3D.mat'
-classifier_model_weigts = './trained_models/train_exp1_128LSTM_C3D/weights_exp1_128LSTM_C3D.mat'
+#classifier_model_weigts = './trained_models/train_exp1_128LSTM_C3D/weights_exp1_128LSTM_C3D.mat'
 #classifier_model_weigts = './trained_models/train_exp2_128LSTM_C3D/weights_exp2_128LSTM_C3D.mat'
 #classifier_model_weigts = './trained_models/train_exp1_I3D/weights_exp1_I3D.mat'
 #classifier_model_weigts = './trained_models/train_exp2_I3D/weights_exp2_I3D.mat'
