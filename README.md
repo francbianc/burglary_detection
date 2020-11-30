@@ -1,7 +1,8 @@
 # Burglary Detection in Surveillance Videos
 Implementation of a deep-learning model to detect burglary in surveillance videos, based on the following papers:
-- ["Real-world Anomaly Detection in Surveillance Videos"](https://arxiv.org/pdf/1801.04264.pdf) by Sultani, Chen and Shah (2019);
-- ["Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset"](https://arxiv.org/pdf/1705.07750.pdf) by Carreira and Zisserman (2018).
+- W. Sultani, C. Chen and M. Shah, [Real-world Anomaly Detection in Surveillance Videos](https://arxiv.org/pdf/1801.04264.pdf), *2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition*, Salt Lake City, UT, 2018, pp. 6479-6488, doi: 10.1109/CVPR.2018.00678.
+- J. Carreira and A. Zisserman, [Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/pdf/1705.07750.pdf), *2015 IEEE International Conference on Computer Vision (ICCV)*, Santiago, 2015, pp. 4489-4497, doi: 10.1109/ICCV.2015.510.
+
 
 ## Installing `requirements` (Python 3, Tensorflow 2.3.0) 
 
