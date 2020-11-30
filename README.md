@@ -85,6 +85,7 @@ pip install -r requirements.txt
 
   If you decide to use as test set only some videos, make sure they are in the `Input` folder, without other videos used for training. Moreover, put only their features in the `C3D_Features` or `I3D_Features` folder and make sure their temporal annotations appear in the txt file specified by *cfg.all_ann_path*. Before running AUC.py, change the following variable in the configuration.py file:
   - *cfg.use_i3d*
+  
   Results (AUC value) are printed.
 
   If you decide to use as test set the entire *UCF_Crimes* test set, you have to run AUC_server.py. Before running this code, change the following variables in the configuration.py file: 
@@ -93,6 +94,7 @@ pip install -r requirements.txt
   - *cfg.path_all_features*
   - *cfg.NamesAnn_path*
   - *cfg.Ann_path*: directory of a .txt file containing the names of test videos and their temporal annotations
+  
   Results are printed.
 
 
