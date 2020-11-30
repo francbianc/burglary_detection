@@ -25,6 +25,7 @@ if cfg.use_i3d:
 
 # Divide test videos: Sultani vs. Giovanni to compute different AUC metrics
 gios = [i.strip().replace('.mp4', '') for i in open('./video_gio_names.txt', 'r')]
+
 gio_annotations_dict = {k:v for k,v in all_annotations_dict.items() if k in gios}
 assert len(gio_annotations_dict) == 20
 sul_annotations_dict = {k:v for k,v in all_annotations_dict.items() if k not in gios}
@@ -38,8 +39,33 @@ assert len(sul_ann_names) == 290
 gio_frames_dict = {k:v for k,v in all_frames_dict.items() if k.split('/')[1].replace('.txt', '') in gios}
 assert len(gio_frames_dict ) == 20
 sul_frames_dict = {k:v for k,v in all_frames_dict.items() if k.split('/')[1].replace('.txt', '') not in gios}
+assert len(sul_frames_dict ) == 290
 
 def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
+   """
+   Using the temporal annotations (true labels) that indicates the presence of an anomaly in the video and the frame predictions obtained with
+   the classifier, compute the accuracy of the model using the AUC using two different methods:
+   1. Sultani et al. (2019) approach
+   2. Scikit-Learn function
+   
+   Parameters
+   --------------
+   all_annotations_dict : dict
+      What is the parameter?
+   all_frames_dict : dict
+      What is the parameter?
+   all_ann_names : list
+      What is the parameter?
+
+   Returns
+   --------------
+   float
+      AUC computed using the approach of Sultani et al. (2019)
+   float
+      AUC computed using the ROC curve from the scikit-learn library
+
+   """
+
    no_video = 1
    frm_counter = 0
    All_Detect = np.zeros(100000000)

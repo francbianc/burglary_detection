@@ -93,18 +93,18 @@ for filename in os.listdir(cfg.input_folder):
       no_video = no_video + 1
       frm_counter=frm_counter+len(Final_score)
 
-All_Detect=(All_Detect[0:frm_counter])
-All_GT=All_GT[0:frm_counter]
-tot_scores=All_Detect
+All_Detect = All_Detect[0:frm_counter]
+All_GT = All_GT[0:frm_counter]
+tot_scores = All_Detect
 si = tot_scores.argsort()[::-1]
-tp=All_GT[si]>0
-fp=All_GT[si]==0
-tp=np.cumsum(tp)
-fp=np.cumsum(fp)
-nrpos=sum(All_GT)
-rec=tp/nrpos
-fpr=fp/sum(All_GT==0)
-prec=tp/(fp+tp)
+tp = All_GT[si] > 0
+fp = All_GT[si] == 0
+tp = np.cumsum(tp)
+fp = np.cumsum(fp)
+nrpos = sum(All_GT)
+rec = tp / nrpos
+fpr = fp / sum(All_GT == 0)
+prec = tp / (fp + tp)
 AUC1 = np.trapz(rec, fpr)
 print('AUC1: ', AUC1)
 
