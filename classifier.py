@@ -8,6 +8,19 @@ from tensorflow.keras.regularizers import L2
 # VARIABLES: cfg.use_lstm, cfg.use_i3d
 
 def classifier_model():
+    """
+    Create the classifier according to the specification in configuration.py
+    Four possibilities:
+    1. C3D - Fully Connected model
+    2. C3D - LSTM - Fully Connected model
+    3. I3D - Fully Connected model
+    4. I3D - LSTM - Fully Connected model
+
+    Returns
+    ---------
+    Sequential
+    """
+
     model = Sequential()
     if cfg.use_i3d == False: 
         if cfg.use_lstm:
@@ -32,11 +45,23 @@ def classifier_model():
     return model
 
 def build_classifier_model():
+    """
+    Create the model and load weights if the model has alredy been trained
+
+    Returns
+    ---------
+    Sequential
+        Pre-trained model if weights exits, otherwise need to be trained from scratch
+    """
+
     model = classifier_model()
     model = load_weights(model, cfg.classifier_model_weigts)
     return model
 
 def conv_dict(dict2):
+    """
+    NO IDEA -> DA FARE
+    """
     diction = {}
     for i in range(len(dict2)):
         if str(i) in dict2:
@@ -54,6 +79,22 @@ def conv_dict(dict2):
     return diction
 
 def load_weights(model, weights_file):
+    """
+    Given a Keras model architecture and the corresponding weigths, create the pre-trained model that can be used to make predictions
+
+    Parameters
+    -------------
+    model : Sequential
+        Keras model architecture
+    weights_file : .mat file
+        .mat file in which weights are stored
+
+    Returns
+    ------------
+    Sequential
+        Pre-trained Keras model
+    """
+    
     dict2 = sio.loadmat(weights_file)
     diction = conv_dict(dict2)
     i = 0
