@@ -8,6 +8,11 @@ path_all_videos = cfg.path_all_videos
 
 def run_c3d():
     '''
+    Starting from videos, extract features using the C3D model pre-trained on the Sports-1M dataset and save them as .txt files.
+    Videos are passed as bags of 32 temporal segments and the resulting features wil have dimension (32, 4096). 
+
+    This script should be run on a remote server.
+
     1. './video_paths.txt' = file with all the 19 names of the folders that contain videos by category 
     2. cfg.C3D_info_path = file where num_frames_clips.txt is saved
     3. cfg.path_all_videos = folder that contains all the 19 subfolders with videos by category 

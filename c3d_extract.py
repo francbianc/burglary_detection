@@ -7,10 +7,14 @@ from utils.visualization_util import *
 
 def run_c3d():
     '''
+    Starting from videos, extract features using the C3D model pre-trained on the Sports-1M dataset and save them as .txt files.
+    Videos are passed as bags of 32 temporal segments and the resulting features wil have dimension (32, 4096). 
+
     1. cfg.input_folder = folder containing all those videos whose features need to be extracted
     2. cfg.C3D_path = folder where these features are saved 
     3. cfg.C3D_info_path = folder where num_frames_clips.txt is saved
     '''
+
     num_clips_frames = []
     for filename in os.listdir(cfg.input_folder):
         if filename.endswith('.mp4'):
