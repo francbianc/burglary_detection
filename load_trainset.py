@@ -8,9 +8,34 @@ import configuration as cfg
 # VARIABLES: server, cfg.use_i3d
 
 def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch_size, num_abnorm, num_norm, server=True, use_i3d=cfg.use_i3d):
-    '''AbnormalPath, NormalPath: paths of the folder containing extracted features (such as C3D_Features, I3D_Features or 
-    any other folder containing all the features divided by category in subfolders)
     '''
+    Create the trainig set (both features and labels) divided in batches, according to the specified batch size, to train the classifier 
+
+    Parameters
+    ----------
+    Abnormal_Features_Path : str
+        Path of the folder containing the extracted features with C3D or I3D divided by category in subfolders
+    Normal_Features_Path : str
+        Path of the folder containing the extracted features with C3D or I3D for the normal videos
+    batch_size : int
+        Dimension of the batch for the training
+    num_abnorm : int
+        Number of anomalous videos in the training set
+    num_norm : int
+        Number of normal videos in the training set
+    server : bool
+        Boolean variable if the script is to be run on a server
+    use_i3d : bool 
+        Boolean variable if we want to use extracted features with I3D
+
+    Returns
+    ----------
+    ndarray
+        Features divided in batches
+    ndarray
+        Labels divided in batches
+    '''
+
     batchsize = batch_size
     n_exp = int(batchsize / 2)
 
@@ -32,12 +57,14 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
     assert len(All_Videos0) == Num_abnormal
     AllFeatures = []
     Video_count = -1
-
+    
+    # according to the feature extractor used, we define the dimension of the features
     if use_i3d:
         dim = 1024
     else: 
         dim = 4096 
 
+    # loading anomalous featurs
     for iv in Abnor_list_iter:
         Video_count = Video_count + 1
         VideoPath = os.path.join(Abnormal_Features_Path, All_Videos0[iv])
@@ -68,6 +95,7 @@ def load_dataset_Train_batch(Abnormal_Features_Path, Normal_Features_Path, batch
             All_Videos1 = [i.strip().replace('_Features/', '_Features_I3D/') for i in open(cfg.train_1_path, 'r')]
     assert len(All_Videos1) == Num_normal
 
+    # loading normal features
     for iv in Norm_list_iter:
         VideoPath = os.path.join(Normal_Features_Path, All_Videos1[iv])
         f = open(VideoPath, "r")
