@@ -8,10 +8,16 @@ path_all_videos = cfg.path_all_videos
 
 def run_i3d():
     '''
+    Starting from videos, extract features using the I3D model pre-trained on the Kinetics dataset and save them as .txt files.
+    Videos are passed as bags of 32 temporal segments and the resulting features wil have dimension (32, 1024). 
+
+    This script should be run on a remote server.
+
     1. './video_paths.txt' = file with all the 19 names of the folders that contain videos by category 
     2. cfg.I3D_path = file where done_check.txt is saved (optional)
     3. cfg.path_all_videos = folder that contains all the 19 subfolders with videos by category
     '''
+
     input_path = [line.strip() for line in open('./video_paths.txt', 'r')]
     input_path = [os.path.join(path_all_videos, i) for i in input_path]
 
@@ -20,6 +26,7 @@ def run_i3d():
     
     assert len(input_path) == len(feat_output_path)
     
+    # create features directiories if they do not exist
     for path in feat_output_path:
         if not os.path.exists(path):
             os.makedirs(path)

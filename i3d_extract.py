@@ -7,6 +7,9 @@ import numpy as np
 
 def run_i3d():
     '''
+    Starting from videos, extract features using the I3D model pre-trained on the Kinetics dataset and save them as .txt files.
+    Videos are passed as bags of 32 temporal segments and the resulting features wil have dimension (32, 1024). 
+
     1. cfg.input_folder = folder containing all those videos whose features need to be extracted
     2. cfg.I3D_path = folder where these features are saved 
     '''
