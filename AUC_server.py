@@ -92,7 +92,7 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
          # integer
          
          # assign to each frame the anomaly score of the feature it belongs to
-         num_features = len(C3D_file)     # must be 32
+         num_features = int(np.round(num_frames/16))
          num_frames_C3D = num_features*16 # as the features were computed for every 16 frames
          Detection_score_32shots = np.zeros(num_frames_C3D)
          Thirty2_shots = np.round(np.linspace(0, num_features, 32))
