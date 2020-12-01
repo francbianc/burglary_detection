@@ -107,9 +107,9 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
             #print('c_shots:', c_shots, 'n_shots:', n_shots)
 
             if c_shots == len(Thirty2_shots):
-               ee=Thirty2_shots[n_shots]
+               ee = Thirty2_shots[n_shots]
 
-            if ee<ss:
+            if ee < ss:
                Detection_score_32shots[(int(ss))*16:(int(ss))*16+16+1] = score[p_c]
                #print(ee < ss)
             else:
@@ -128,7 +128,7 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
          # check the temporal annotation
          t_txt = [int(i) for i in Ann]
          
-         for y in range(0,3,2):
+         for y in range(0, 3, 2):
             if t_txt[y] >= 0:
                st_fr = max(int(float(t_txt[y])), 0)
                end_fr = min(int(float(t_txt[y+1])), num_frames)
@@ -143,22 +143,27 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
    All_Detect = (All_Detect[0:frm_counter])
    All_GT = All_GT[0:frm_counter]
    tot_scores = All_Detect
+
    si = tot_scores.argsort()[::-1]
    tp = All_GT[si] > 0
    fp = All_GT[si] == 0
    tp = np.cumsum(tp)
    fp = np.cumsum(fp)
+
    nrpos = sum(All_GT)
    rec = tp / nrpos
    fpr = fp / sum(All_GT == 0)
    prec = tp / (fp + tp)
+   
    AUC1 = np.trapz(rec, fpr)
    print('AUC1: ', AUC1)
 
    fpr, tpr, thresholds = metrics.roc_curve(All_GT, All_Detect)
    AUC2 = metrics.auc(fpr, tpr)
    print('AUC2: ', AUC2)
+
    return AUC1, AUC2
+
 
 print('>> AUC with 310 test videos')
 AUC1_all, AUC2_all = run_test(all_annotations_dict, all_frames_dict, all_ann_names)
