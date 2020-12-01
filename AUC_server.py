@@ -120,10 +120,10 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
          #print(len(Detection_score_32shots))
          if num_frames > len(Detection_score_32shots):
             Final_score = np.append(Detection_score_32shots, np.repeat(Detection_score_32shots[-1], [num_frames-len(Detection_score_32shots)]))
-            GT=np.zeros(num_frames)
+            GT = np.zeros(num_frames)
          else:
             Final_score = Detection_score_32shots
-            GT=np.zeros(len(Detection_score_32shots))
+            GT = np.zeros(len(Detection_score_32shots))
 
          # check the temporal annotation
          t_txt = [int(i) for i in Ann]
@@ -154,7 +154,7 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
    rec = tp / nrpos
    fpr = fp / sum(All_GT == 0)
    prec = tp / (fp + tp)
-   
+
    AUC1 = np.trapz(rec, fpr)
    print('AUC1: ', AUC1)
 
