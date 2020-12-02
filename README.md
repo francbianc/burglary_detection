@@ -11,7 +11,19 @@ pip install -r requirements.txt
 ```
 
 ## Dataset
-...
+1. **ORIGINAL DATASET** 
+The original dataset is the from Sultani et al (2019) which is composed as the following: 
+ * 1920 videos
+ * 130 hours total length 95 GigaByte size
+ * 13 different crimes' categories: abuse, arrest, arson, assault, burglary, explosion,  fighting, road accidents, robbery, shoplifting, stealing, vandalism
+ * 1610 *train* videos: 
+    - 810 abnormal videos containing anomalous events 
+    - 800 normal videos where no anomaly occurs
+ * 290 *test* videos:
+    - 160 abnormal 
+    - 130 normal 
+For the project it has not been used this original dataset as such but a slighlty modified version. In particular, the modification that we made were the following: 
+ * 3 normal videos of the training that were too memory set were replaced by flipped-versions of 3 other normal videos 
 
 ## How to use this repo?
 
