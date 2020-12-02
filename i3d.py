@@ -15,6 +15,7 @@ from tensorflow.keras.layers import Dense, Dropout, Flatten, Input, Activation, 
 from tensorflow.keras import Model, Sequential
 from tensorflow.keras.utils import get_file, get_source_inputs 
 
+# AIM: define the I3D model and upload choosen weights. There are 4 options, given the 4 different datasets used to train the model. 
 
 # names of possible pretrained models with saved weights
 WEIGHTS_NAME = ['rgb_kinetics_only', 'flow_kinetics_only', 'rgb_imagenet_and_kinetics', 'flow_imagenet_and_kinetics']
@@ -48,7 +49,7 @@ def preprocess_input(video):
 
     # Crop to 112x112
     reshape_frames = reshape_frames[:, 8:120, 30:142, :]
-    # final frames shape == (1,16,112,112,3)
+    # Final frames shape == (1,16,112,112,3)
     reshape_frames = np.expand_dims(reshape_frames, axis=0)
     
     return reshape_frames
