@@ -4,18 +4,24 @@ from utils.visualization_util import *
 from sklearn import metrics
 import configuration as cfg
 
+## USE THIS '_server' EXTENSION IF YOU WANT TO USE THE ENTIRE DATASET 
+
 # PATHS: cfg.path_all_features, cfg.Ann_path, cfg.NamesAnn_path, './num_frames.txt'
 # VARIABLES: cfg.train_exp_name, cfg.use_i3d
+# AIM: compute AUC for test data 
 
 path_all_features = cfg.path_all_features
 experiment_name = cfg.train_exp_name
 
-# Score is a folder in path_all_features, created by test_detect_server.py, that contains 310 txt files of scores
+# Get the predicted 32 scores for each test video
+# Scores_ is a folder in path_all_features, created by test_detect_server.py, that contains 310 txt files of scores
 score_path = os.path.join(path_all_features, 'Scores_'+experiment_name)
 
+# Get the true scores for each test video
 all_annotations = [line.strip().split() for line in open(cfg.Ann_path, 'r')]
 all_annotations_dict = {l[0].split('.')[0]:l[-4:] for l in all_annotations}
 
+# Get the names of all those videos that must be included in the test set and the number of frames they have 
 all_ann_names = [line.strip().replace('.mp4', '.txt').replace('/', '_Features/') for line in open(cfg.NamesAnn_path, 'r')]
 all_frames = [i.strip().split() for i in open('./num_frames.txt', 'r')]
 all_frames_dict = {l[0]:l[1:] for l in all_frames}
@@ -23,7 +29,7 @@ if cfg.use_i3d:
    all_ann_names = [line.strip().replace('.mp4', '.txt').replace('/', '_Features_I3D/') for line in open(cfg.NamesAnn_path, 'r')]
    all_frames_dict = {l[0].replace('/', '_I3D/'):l[1:] for l in all_frames}
 
-# Divide test videos: Sultani vs. Giovanni to compute different AUC metrics
+# Repeat the same step but dividing Giovanni's videos from those of Sultani
 gios = [i.strip().replace('.mp4', '') for i in open('./video_gio_names.txt', 'r')]
 
 gio_annotations_dict = {k:v for k,v in all_annotations_dict.items() if k in gios}
@@ -39,7 +45,6 @@ assert len(sul_ann_names) == 290
 gio_frames_dict = {k:v for k,v in all_frames_dict.items() if k.split('/')[1].replace('.txt', '') in gios}
 assert len(gio_frames_dict ) == 20
 sul_frames_dict = {k:v for k,v in all_frames_dict.items() if k.split('/')[1].replace('.txt', '') not in gios}
-assert len(sul_frames_dict ) == 290
 
 def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
    """
@@ -51,18 +56,18 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
    Parameters
    --------------
    all_annotations_dict : dict
-      What is the parameter?
+      Keys are names of test videos. Values are lists of 4 integers, that are the true labels of each video.
    all_frames_dict : dict
-      What is the parameter?
+      Keys are names of test videos. Values are the number of frames they have. 
    all_ann_names : list
-      What is the parameter?
+      List of names of test videos. 
 
    Returns
    --------------
    float
       AUC computed using the approach of Sultani et al. (2019)
    float
-      AUC computed using the ROC curve from the scikit-learn library
+      AUC computed using the ROC curve from the Scikit-Learn library
 
    """
 
@@ -91,9 +96,9 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
          num_frames = int(all_frames_dict[filename][0])
          # integer
          
-         # assign to each frame the anomaly score of the feature it belongs to
+         # Assign to each frame the anomaly score of the feature it belongs to
          num_features = int(np.round(num_frames/16))
-         num_frames_C3D = num_features*16 # as the features were computed for every 16 frames
+         num_frames_C3D = num_features*16 # As the features were computed for every 16 frames
          Detection_score_32shots = np.zeros(num_frames_C3D)
          Thirty2_shots = np.round(np.linspace(0, num_features, 32))
 
@@ -118,6 +123,7 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
 
          #print(num_frames)
          #print(len(Detection_score_32shots))
+         # Assign to the last frames of a video the 32th score 
          if num_frames > len(Detection_score_32shots):
             Final_score = np.append(Detection_score_32shots, np.repeat(Detection_score_32shots[-1], [num_frames-len(Detection_score_32shots)]))
             GT = np.zeros(num_frames)
@@ -125,7 +131,7 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
             Final_score = Detection_score_32shots
             GT = np.zeros(len(Detection_score_32shots))
 
-         # check the temporal annotation
+         # Check the temporal annotation
          t_txt = [int(i) for i in Ann]
          
          for y in range(0, 3, 2):
@@ -165,11 +171,14 @@ def run_test(all_annotations_dict, all_frames_dict, all_ann_names):
    return AUC1, AUC2
 
 
+# Compute the AUC considering all the test videos
 print('>> AUC with 310 test videos')
 AUC1_all, AUC2_all = run_test(all_annotations_dict, all_frames_dict, all_ann_names)
 
+# Compute the AUC considering only the test videos collected by Sultani
 print('>> AUC with 290 SULTANI test videos')
 AUC1_sul, AUC2_sul = run_test(sul_annotations_dict, sul_frames_dict, sul_ann_names)
 
+# Compute the AUC considering only the test videos we've collected 
 print('>> AUC with 20 GIOSS test videos')
 AUC1_gio, AUC2_gio = run_test(gio_annotations_dict, gio_frames_dict, gio_ann_names)
