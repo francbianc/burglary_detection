@@ -6,7 +6,6 @@ I3D_path = './I3D_Features'
 
 trained_folder = './trained_models/train_'
 score_path = './Scores'
-gif_path = './GIF'
 all_ann_path = './training_splits/Sultani/test_annot310_sultani.txt'
 filter_path = './Filters_FeatureMaps'
 
@@ -29,11 +28,11 @@ classifier_model_json = './trained_models/model.json'
 #classifier_model_weigts = './trained_models/train_sul_I3D/weights_sul_I3D.mat'
 
 ## Paths to use the entire UCF_Crimes dataset 
-path_all_videos = '/home/3022790/UCF_Crimes/Videos/'        
-path_all_features = '/home/3022790/UCF_Crimes/Videos/' 
+path_all_videos = '.../UCF_Crimes/Videos/'        
+path_all_features = '.../UCF_Crimes/Videos/' 
 
 ## Name any experiment you want to perform with train.py
-train_exp_name = 'Experiment ...'      
+train_exp_name = 'experiment_...'      
 
 ## Choose which training-test set you prefer (3 possibilities)
 sul = True
