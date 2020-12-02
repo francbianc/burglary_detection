@@ -11,8 +11,9 @@ from tensorflow.keras import Model
 from tensorflow.keras import Sequential
 from tensorflow.keras.utils import get_file
 
-
 # PATHS: C3D_MEAN_PATH, C3D_SPORTS1M_PATH
+# AIM: define the C3D model and upload the weights trained on the Sports-1M dataset, that consists of 1.1 million sports videos.
+
 C3D_MEAN_PATH = 'https://github.com/adamcasson/c3d/releases/download/v0.1/c3d_mean.npy'
 C3D_SPORTS1M_PATH = 'https://github.com/adamcasson/c3d/releases/download/v0.1/sports1M_weights_tf.h5'
 
@@ -32,6 +33,7 @@ def preprocess_input(video):
                          md5_hash='08a07d9761e76097985124d9e8b2fe34')
 
     mean = np.load(mean_path)
+    # Normalize frames
     reshape_frames -= mean
     # Crop to 112x112
     reshape_frames = reshape_frames[:, 8:120, 30:142, :]
@@ -79,6 +81,7 @@ def C3D(weights='sports1M'):
     model.add(Dense(487, activation='softmax', name='fc8'))
 
     if weights == 'sports1M':
+        # Load weights
         c3d_model_weights = get_file('c3d_sports1m.h5', C3D_SPORTS1M_PATH)
         model.load_weights(c3d_model_weights)
 
@@ -87,6 +90,7 @@ def C3D(weights='sports1M'):
 
 def c3d_feature_extractor():
     model = C3D()
+    # Extract visual features from the fully connected (FC) layer FC6 of the C3D network
     layer_name = 'fc6'
     feature_extractor_model = Model(inputs=model.input, outputs=model.get_layer(layer_name).output)
     return feature_extractor_model
