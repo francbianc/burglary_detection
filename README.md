@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ```
 
 ## Dataset
-1. **ORIGINAL DATASET** 
+1. **ORIGINAL DATASET**   
 The original dataset is the from Sultani et al (2019) which is composed as the following: 
      * 1920 videos
      * 130 hours total length 95 GigaByte size
@@ -31,7 +31,7 @@ For the project it has not been used this original dataset as such but a slighlt
 
 Our project's aim is that of predicting score for the occurrence of burglary episodes. Throughout our project we analyzed whether burglary and other crimes do share common features and what would the implications of including/excluding categories far from burglary for the training process. Therefore we conducted two different experiments and modified the dataset accordingly. 
 
-2. **EXPERIMENT 1**
+2. **EXPERIMENT 1**  
 The experiment 1 dataset was built removing crimes with features too different from burglary and it is composed as the following: 
      * 1810 videos
      * 1500 *train* videos
@@ -41,7 +41,7 @@ The experiment 1 dataset was built removing crimes with features too different f
       * Anomalous videos include *only* crimes close to burglary and normal videos *only* videos where no crime occurred.
       * *Removed* crime categories: abuse, arson, read accidents, shoplifting
 
-3. **EXPERIMENT 2**
+3. **EXPERIMENT 2**  
 The experiment 2 dataset was built removing crimes with features too different from burglary and it is composed as the following: 
      * 1810 videos
      * 1500 *train* videos
