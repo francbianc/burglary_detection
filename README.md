@@ -13,17 +13,41 @@ pip install -r requirements.txt
 ## Dataset
 1. **ORIGINAL DATASET** 
 The original dataset is the from Sultani et al (2019) which is composed as the following: 
- * 1920 videos
- * 130 hours total length 95 GigaByte size
- * 13 different crimes' categories: abuse, arrest, arson, assault, burglary, explosion,  fighting, road accidents, robbery, shoplifting, stealing, vandalism
- * 1610 *train* videos: 
-    - 810 abnormal videos containing anomalous events 
-    - 800 normal videos where no anomaly occurs
- * 290 *test* videos:
-    - 160 abnormal 
-    - 130 normal 
+     * 1920 videos
+     * 130 hours total length 95 GigaByte size
+     * 13 different crimes' categories: abuse, arrest, arson, assault, burglary, explosion,  fighting, road accidents, robbery, shoplifting, stealing, vandalism
+     * 1610 *train* videos: 
+        - 810 abnormal videos containing anomalous events 
+        - 800 normal videos where no anomaly occurs
+     * 290 *test* videos:
+        - 160 abnormal 
+        - 130 normal 
 For the project it has not been used this original dataset as such but a slighlty modified version. In particular, the modification that we made were the following: 
- * 3 normal videos of the training that were too memory set were replaced by flipped-versions of 3 other normal videos 
+     * 3 normal videos of the training were replaced by flipped-versions of 3 other normal videos due to memory issues. 
+     * 20 abnormal videos collected from scratch concerning burglaries were added to te test set. The total test set is then composed of 310 videos. 
+
+Our project's aim is that of predicting score for the occurrence of burglary episodes. Throughout our project we analyzed whether burglary and other crimes do share common features and what would the implications of including/excluding categories far from burglary for the training process. Therefore we conducted two different experiments and modified the dataset accordingly. 
+
+2. **EXPERIMENT 1**
+The experiment 1 dataset was built removing crimes with features too different from burglary and it is composed as the following: 
+     * 1810 videos
+     * 1500 *train* videos
+     * 310 *test* videos:
+        - 290 from the original dataset 
+        - 20 collected 
+      * Anomalous videos include *only* crimes close to burglary and normal videos *only* videos where no crime occurred.
+      * *Removed* crime categories: abuse, arson, read accidents, shoplifting
+
+3. **EXPERIMENT 2**
+The experiment 2 dataset was built removing crimes with features too different from burglary and it is composed as the following: 
+     * 1810 videos
+     * 1500 *train* videos
+     * 310 *test* videos:
+        - 290 from the original dataset 
+        - 20 collected 
+      * Anomalous videos include *only* crimes close to burglary and normal videos include videos where no crime occurred *and* crimes far from burglary.
+      * *Removed* crime categories: abuse, arson, read accidents, shoplifting
+
 
 ## How to use this repo?
 
