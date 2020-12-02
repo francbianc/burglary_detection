@@ -1,9 +1,10 @@
 # Burglary Detection in Surveillance Videos
 Implementation of a deep-learning model to detect burglary in surveillance videos, based on the following papers:
-- W. Sultani, C. Chen and M. Shah, [Real-world Anomaly Detection in Surveillance Videos](https://arxiv.org/pdf/1801.04264.pdf), *2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition*, Salt Lake City, UT, 2018, pp. 6479-6488, doi: 10.1109/CVPR.2018.00678.
-- [AnomalyDetectionCVPR2018](https://github.com/WaqasSultani/AnomalyDetectionCVPR2018) GitHub Repository by *W. Sultani*
 - J. Carreira and A. Zisserman, [Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/pdf/1705.07750.pdf), *2015 IEEE International Conference on Computer Vision (ICCV)*, Santiago, 2015, pp. 4489-4497, doi: 10.1109/ICCV.2015.510.
-- [abnormal-event-detection](https://github.com/dexXxed/abnormal-event-detection) GitHub Repository by *dexXxed*
+- dexXxed, [abnormal-event-detection](https://github.com/dexXxed/abnormal-event-detection), GitHub Repository
+- W. Sultani, C. Chen and M. Shah, [Real-world Anomaly Detection in Surveillance Videos](https://arxiv.org/pdf/1801.04264.pdf), *2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition*, Salt Lake City, UT, 2018, pp. 6479-6488, doi: 10.1109/CVPR.2018.00678.
+- W. Sultani, [AnomalyDetectionCVPR2018](https://github.com/WaqasSultani/AnomalyDetectionCVPR2018), GitHub Repository
+- D. Tran, L. Bourdev, R. Fergus, L. Torresani and M. Paluri, [Learning Spatiotemporal Features with 3D Convolutional Networks](https://arxiv.org/abs/1412.0767), *2015 IEEE International Conference on Computer Vision (ICCV)*, Santiago, 2015, pp. 4489-4497, doi: 10.1109/ICCV.2015.510.
 
 
 
