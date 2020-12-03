@@ -3,6 +3,7 @@ import random
 from moviepy.editor import VideoFileClip, vfx
 
 # PATHS: videos_to_flip_path
+# AIM: data augmentation of videos = horizzontally flip
 
 # Put all the videos you want to flip horizzontally into an unique folder
 videos_to_flip_path = '/Volumes/DISK/UCF_Crimes/Videos/Flipping'
