@@ -1,4 +1,7 @@
 # Burglary Detection in Surveillance Videos
+
+## Done by Anna Chiara Di Marco, Davide Castellini, Francesca Bianchessi, Giovanni Meggiolaro, Marco Vincenzi
+
 Implementation of a deep-learning model to detect burglary in surveillance videos, based on the following papers:
 - J. Carreira and A. Zisserman, [Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/pdf/1705.07750.pdf), *2015 IEEE International Conference on Computer Vision (ICCV)*, Santiago, 2015, pp. 4489-4497, doi: 10.1109/ICCV.2015.510.
 - dexXxed, [abnormal-event-detection](https://github.com/dexXxed/abnormal-event-detection), GitHub Repository
