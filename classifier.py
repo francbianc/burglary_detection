@@ -6,19 +6,19 @@ from tensorflow.keras.regularizers import L2
 
 # PATHS: cfg.classifier_model_weigts 
 # VARIABLES: cfg.use_lstm, cfg.use_i3d
+# AIM: define the classifier model and upload its weights 
 
 def classifier_model():
     """
     Create the classifier according to the specification in configuration.py
-    Four possibilities:
-    1. C3D - Fully Connected model
-    2. C3D - LSTM - Fully Connected model
-    3. I3D - Fully Connected model
-    4. I3D - LSTM - Fully Connected model
+    Three possibilities:
+    1. C3D - Fully Connected model: Features are extracted with C3D (32, 4096) and the classifier is not modified
+    2. C3D - LSTM: Features are extracted with C3D (32, 4096) and the classifier has an additional LSTM layer (128,) 
+    3. I3D - Fully Connected model: Features are extracted with I3D (32, 1024) and the classifier is not modified
 
     Returns
     ---------
-    Sequential
+    Sequential  
     """
 
     model = Sequential()
@@ -46,21 +46,20 @@ def classifier_model():
 
 def build_classifier_model():
     """
-    Create the model and load weights if the model has alredy been trained
+    Create the model and load its weights, specified in configuration.py
 
     Returns
     ---------
     Sequential
-        Pre-trained model if weights exits, otherwise need to be trained from scratch
+        Model initialized with pre-trained weights
     """
-
     model = classifier_model()
     model = load_weights(model, cfg.classifier_model_weigts)
     return model
 
 def conv_dict(dict2):
     """
-    NO IDEA -> DA FARE
+    Retrieve the weights from a .mat file
     """
     diction = {}
     for i in range(len(dict2)):
@@ -92,7 +91,7 @@ def load_weights(model, weights_file):
     Returns
     ------------
     Sequential
-        Pre-trained Keras model
+        Pre-trained Keras model with corresponding weights
     """
     
     dict2 = sio.loadmat(weights_file)
