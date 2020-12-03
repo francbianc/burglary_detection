@@ -13,15 +13,20 @@ import classifier as clf
 from loss_function import *
 from load_trainset import *
 
+
 # PATHS: cfg.path_all_features, cfg.trained_folder
 # VARIABLES: cfg.train_exp_name, cfg.use_i3d, cfg.use_lstm, cfg.num_0, cfg.num_1
+# AIM: training the classifier model from scratch 
 
-## NB: Each train you run, change the variables in configuration.py (except cfg.trained_folder)
-## NB: If you change the batchsize, you must change the "nvid" variable in the loss_function.py !
+## NB: EACH TRAIN YOU RUN, YOU HAVE FIRSTLY TO CHANGE THE ABOVE MENTIONED VARIABLES AND PATHS IN configuration.py (EXCEPT cfg.trained_folder)
+## NB: If you change the batchsize, you must change the "nvid" variable in the loss_function.py file!
 
 def save_model(model, json_path, weight_path, json=False):
-    ''' - to_json(): returns a JSON string containing the network configuration
-        - savemat(): saves a dictionary of names and arrays into a .mat file'''
+    ''' 
+    Save a trained model.
+    - to_json(): returns a JSON string containing the network configuration
+    - savemat(): saves a dictionary of names and arrays into a .mat file
+    '''
     if json: 
         json_string = model.to_json()
         open(json_path, 'w').write(json_string)
@@ -36,12 +41,15 @@ def save_model(model, json_path, weight_path, json=False):
     savemat(weight_path, dict)
 
 def load_model(json_path):
-    '''model_from_json(): parses a JSON model configuration string and returns a model instance'''
+    '''
+    Upload a trained model.
+    - model_from_json(): parses a JSON model configuration string and returns a model instance'''
     model = model_from_json(open(json_path).read())
     return model
 
 # Path to all features: we assume all videos' features are located in an unique folder  
 path_all_features = cfg.path_all_features
+# Give a name to your experiment 
 train_name = cfg.train_exp_name
 
 # Path where you want to save trained weights and model: subfolder in trained_models folder
@@ -56,6 +64,7 @@ adagrad = Adagrad(lr=0.01, epsilon=1e-08)
 model = clf.classifier_model()
 model.compile(loss=custom_objective, optimizer=adagrad)
 
+# Understand if you've set all the variables correctly!
 print('Model initialized: ')
 if cfg.use_i3d == True:
     if cfg.use_lstm == True:
@@ -68,7 +77,7 @@ else:
     else:
         print(' -------------> C3D - Fully Connected') 
         
-# Training
+# TRAINING 
 print('Starting Training...') 
 print('')
 loss_graph = []
@@ -84,6 +93,7 @@ for it_num in range(num_iters):
     inputs, targets = load_dataset_Train_batch(path_all_features, path_all_features, batchsize, num_abn_vid, num_nor_vid) 
     inputs = tf.convert_to_tensor(inputs, dtype=tf.float32)
     
+    # Convert features extracted according to the necessary dimension to avoid errors from Tensorflow
     if cfg.use_lstm:
         if cfg.use_i3d:
             inputs = tf.reshape(inputs, [1920,1,1024])
@@ -96,11 +106,12 @@ for it_num in range(num_iters):
     total_iterations += 1
     
     if total_iterations % 100 == 0:
+        # Print a message every 100th iteration 
         print('Iteration {} took: {}, with loss of {}'.format(str(total_iterations), str(datetime.now() - time_before), str(batch_loss)))
         print('')
 
     if total_iterations % 1000 == 0: 
-        # Save model's weight + loss_graph at every 1000th iteration
+        # Save model's weight + loss_graph every 1000th iteration
         weights_path2 = os.path.join(output_dir, 'weights_' + str(total_iterations) + '.mat')
         save_model(model, model_path, weights_path2)
         iteration_path = os.path.join(output_dir, 'iterations_graph_' + str(total_iterations) + '.mat')
