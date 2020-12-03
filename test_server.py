@@ -4,7 +4,7 @@ from classifier import *
 from utils.visualization_util import *
 import configuration as cfg
 
-## USE THIS EXTENSION IF YOU'VE USED ONLY FEW VIDEOS SO FAR
+## USE THIS '_server' EXTENSION IF YOU WANT TO USE THE ENTIRE DATASET
 
 # PATHS: cfg.path_all_features, cfg.NamesAnn_path, cfg.classifier_model_weigts
 # VARIABLES: cfg.train_exp_name, cfg.use_i3d, cfg.use_lstm
