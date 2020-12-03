@@ -4,7 +4,7 @@ from utils.visualization_util import *
 from sklearn import metrics
 import configuration as cfg
 
-## USE THIS EXTENSION IF YOU'VE USED ONLY FEW VIDEOS SO FAR
+## USE THIS EXTENSION IF YOU'VE PUT THE VIDEOS YOU WANT TO USE INTO THE INPUT FOLDER 
 
 # PATHS: cfg.all_ann_path, cfg.input_folder, cfg.score_path, cfg.C3D_path, cfg.I3D_path
 # VARIABLES: cfg.use_i3d
