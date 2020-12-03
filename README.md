@@ -11,7 +11,9 @@ Implementation of a deep-learning model to detect burglary in surveillance video
 
 
 
-## Installing `requirements` (Python 3, Tensorflow 2.3.0) 
+## Libraries
+
+Main tools: Python 3, Tensorflow 2.3.0 
 
 ```shell script
 pip install -r requirements.txt
@@ -19,21 +21,21 @@ pip install -r requirements.txt
 
 ## Dataset
 1. **ORIGINAL DATASET**   
-The original dataset is the from Sultani et al (2019) which is composed as the following: 
-     * 1920 videos
+The original dataset is taken from Sultani et al (2019) which is composed as the following: 
+     * 1900 videos
      * 130 hours total length 95 GigaByte size
-     * 13 different crimes' categories: abuse, arrest, arson, assault, burglary, explosion,  fighting, road accidents, robbery, shoplifting, stealing, vandalism
+     * 13 different crimes' categories: abuse, arrest, arson, assault, burglary, explosion, fighting, road accidents, robbery, shoplifting, stealing, vandalism
      * 1610 *train* videos: 
         - 810 abnormal videos containing anomalous events 
         - 800 normal videos where no anomaly occurs
      * 290 *test* videos:
         - 160 abnormal 
         - 130 normal 
-For the project it has not been used this original dataset as such but a slighlty modified version. In particular, the modification that we made were the following: 
-     * 3 normal videos of the training were replaced by flipped-versions of 3 other normal videos due to memory issues. 
-     * 20 abnormal videos collected from scratch concerning burglaries were added to te test set. The total test set is then composed of 310 videos. 
+For the project it has not been used this original dataset, but a slighlty modified version. In particular, the modification that we made were the following: 
+     * 3 normal videos of the training were replaced by flipped-versions of 3 other normal videos, due to their too big size. 
+     * 20 abnormal videos, collected from scratch and concerning Italian burglaries, were added to te test set. The total test set is then composed of 310 videos. 
 
-Our project's aim is that of predicting score for the occurrence of burglary episodes. Throughout our project we analyzed whether burglary and other crimes do share common features and what would the implications of including/excluding categories far from burglary for the training process. Therefore we conducted two different experiments and modified the dataset accordingly. 
+Our project's aim is detecting the occurrence of burglary episodes. Throughout our project we analyzed whether burglary and other crimes do share common features and what would the implications of including/excluding categories far from burglary for the training process. Therefore we conducted two different experiments and modified the dataset accordingly. 
 
 2. **EXPERIMENT 1**  
 The experiment 1 dataset was built removing crimes with features too different from burglary and it is composed as the following: 
@@ -42,8 +44,8 @@ The experiment 1 dataset was built removing crimes with features too different f
      * 310 *test* videos:
         - 290 from the original dataset 
         - 20 collected 
-      * Anomalous videos include *only* crimes close to burglary and normal videos *only* videos where no crime occurred.
-      * *Removed* crime categories: abuse, arson, read accidents, shoplifting
+      * Anomalous videos include *only* crimes close to burglary; normal videos *only* videos where no crime occurred.
+      * *Removed* crime categories: abuse, arson, road accidents, shoplifting
 
 3. **EXPERIMENT 2**  
 The experiment 2 dataset was built removing crimes with features too different from burglary and it is composed as the following: 
@@ -52,8 +54,8 @@ The experiment 2 dataset was built removing crimes with features too different f
      * 310 *test* videos:
         - 290 from the original dataset 
         - 20 collected 
-      * Anomalous videos include *only* crimes close to burglary and normal videos include videos where no crime occurred *and* crimes far from burglary.
-      * *Removed* crime categories: abuse, arson, read accidents, shoplifting
+      * Anomalous videos include *only* crimes close to burglary; normal videos include both videos where no crime occurred *and* crimes far from burglary.
+      * *Removed* crime categories: abuse, arson, road accidents, shoplifting
 
 
 ## How to use this repo?
@@ -74,7 +76,7 @@ The experiment 2 dataset was built removing crimes with features too different f
 
   If you use as dataset the entire **UCF_Crimes** dataset, you don't have to put any video in the Input folder, but change *cfg.path_all_videos* in `configuration.py`. This path should refer to the directory of the folder that contains a subfolder per each video category. Make sure the names of all these subfolders are listed in `video_paths.txt`. Then, run the extract codes with the "_server" extension. Results are saved in different folders, located in the directory specified by cfg.path_all_videos, such that all the features of a category are saved in the same folder. 
   
-  The features we extracted using both architectures can be downloaded from the Releases section of the repository.
+  The features we extracted, using both architectures on the entire dataset, can be downloaded from the **Releases** section of this repository.
 
 
 2. **TRAIN**    
@@ -84,7 +86,7 @@ The experiment 2 dataset was built removing crimes with features too different f
     To run, it needs the following files: 
       1. `loss_function.py` = the loss function defined by Sultani, Chen and Shah. 
       2. `load_trainset.py` = function to load extracted features in a batch of 60 videos.
-      3. `classifier.py` = the architecture of the training model (4 possibilities: NO_LSTM-C3D, NO_LSTM-I3D, LSTM-C3D, LSTM-I3D).
+      3. `classifier.py` = the architecture of the training model (3 possibilities: NO_LSTM-C3D, NO_LSTM-I3D, LSTM-C3D).
   
   Before running train.py, according to the experiment you want to implement, change the following variables in:
   >> configuration.py
@@ -98,7 +100,7 @@ The experiment 2 dataset was built removing crimes with features too different f
   - *cfg.num_1*
   >> train.py 
   - *num_iters*: we choose 20K iterations
-  - *batch_size*: we choose 60
+  - *batch_size*: we choose 60 videos; 30 are abnormal, 30 normal
 
   Results (the model and its weights) are saved into a subfolder of the `trained_models` folder. This subfolder derives its name from the experiment name, defined by cfg.train_exp_name. 
   
@@ -125,7 +127,7 @@ The experiment 2 dataset was built removing crimes with features too different f
   - *cfg.NamesAnn_path*: directory of a .txt file containing the names of the test videos that must be included for the experiment
   Results are saved into a folder, whose name refers to the defined experiment name, that is located in the directory specified by cfg.path_all_features.
   
-  All the predictions of our model can be downloaded from the Releases section of the repository.
+  All the predictions of our model can be downloaded from the **Releases** section of this repository.
 
 
 4. **AUC - Area Under the Curve**    
@@ -145,19 +147,12 @@ The experiment 2 dataset was built removing crimes with features too different f
   - *cfg.NamesAnn_path*
   - *cfg.Ann_path*: directory of a .txt file containing the names of test videos and their temporal annotations
   Results are printed.
+  
+  All the AUC results we got with our experiments, can be accessed looking at the `AUC_results.txt` file in this repository. 
 
 
-5. **GIF**
-**From predictions ad `.txt` to video gif as `.gif`**
-  * Using predicted burglary-scores to plot them against the corresponding video's frames:
-    - `GIF.py` = create a gif containing the original test video and its burglary-score trend
-
-  Choose a test video, make sure it's in the `Input` folder and its prediction .txt file is in `Score`. Run GIF.py. Results (gif of video and its corresponding scores) are saved in the `GIF` folder. 
-
-
-6. **VISUALIZE FILTERS / FEATURE MAPS**
+5. **VISUALIZE FILTERS / FEATURE MAPS**
 **Visualize filters and feature maps of C3D convolutional layers**
   * Filters: choose a convolutional layer and select the number of the filter, specifying which are the units the filter is going to connect. These values are the inputs of the `plot_filter()` function in `c3d_filters_featmaps.ipynb`. Results (plot of one fiter) are displayed directly in the notebook. 
 
   * Feature maps: choose a video, save its path in the "video_path" variable and if you want to visualize a specific clip, save its number in the "num_clip" variable. If you don't change this variable, the clip would be randomly selected. The clip and the corresponding 16 frames would be saved in a subfolder of `Filters_FeatureMaps`. Then, choose the number of the unit in the first convolutional layer (there are 64 units) and the number of the frame (among the 16 frames of the clip). These last two values are the inputs of the `plot_featmap()` function in `c3d_filters_featmaps.ipynb`. Results (plot of one feature map) are displayed directly in the notebook. 
-
