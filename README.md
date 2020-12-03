@@ -70,6 +70,8 @@ The experiment 2 dataset was built removing crimes with features too different f
   If you use as dataset only some videos, put them into the `Input` folder and run the extract code without the "_server" extension. Remember to put in the Input folder both the train and test videos. You don't have to change any variable or path. Results (features) are saved into `C3D_Features` or `I3D_Features`, depending on which architecture you choose. 
 
   If you use as dataset the entire **UCF_Crimes** dataset, you don't have to put any video in the Input folder, but change *cfg.path_all_videos* in `configuration.py`. This path should refer to the directory of the folder that contains a subfolder per each video category. Make sure the names of all these subfolders are listed in `video_paths.txt`. Then, run the extract codes with the "_server" extension. Results are saved in different folders, located in the directory specified by cfg.path_all_videos, such that all the features of a category are saved in the same folder. 
+  
+  The features we extracted using both architectures can be found in the Release section of the repository.
 
 
 2. **TRAIN**    
