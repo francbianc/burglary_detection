@@ -14,7 +14,7 @@ def run_i3d():
     How?
         Each video is divided into n clips of 16 frames, where n = int(np.round(total_number_of_frames/16)).
         Each clip is given as input to the I3D model, that returns as output an array of 1024 floats. This array is 1 feature. 
-        (n, 1024) features are then merged to end up with (32, 1024) features per each video. . 
+        (n, 1024) features are then merged to end up with (32, 1024) features per each video.
 
     1. cfg.input_folder = folder containing all those videos whose features need to be extracted
     2. cfg.I3D_path = folder where these features are saved 
