@@ -3,12 +3,18 @@ from i3d import *
 from utils.visualization_util import *
 import numpy as np
 
+## USE THIS EXTENSION IF YOU'VE PUT THE VIDEOS YOU WANT TO USE INTO THE INPUT FOLDER
+
 # PATHS: cfg.input_folder, cfg.I3D_path
+# AIM: extract from 1 video, n features. Merge n features to end with 32 features and save them in a .txt file
 
 def run_i3d():
     '''
     Starting from videos, extract features using the I3D model pre-trained on the Kinetics dataset and save them as .txt files.
-    Videos are passed as bags of 32 temporal segments and the resulting features wil have dimension (32, 1024). 
+    How?
+        Each video is divided into n clips of 16 frames, where n = int(np.round(total_number_of_frames/16)).
+        Each clip is given as input to the I3D model, that returns as output an array of 1024 floats. This array is 1 feature. 
+        (n, 1024) features are then merged to end up with (32, 1024) features per each video. . 
 
     1. cfg.input_folder = folder containing all those videos whose features need to be extracted
     2. cfg.I3D_path = folder where these features are saved 
@@ -18,14 +24,14 @@ def run_i3d():
             video_name = os.path.join(cfg.input_folder, filename)       
             name = os.path.basename(video_name).split('.')[0]          
 
-            # read video
+            # Read video: create n clips of 16 frames
             video_clips, num_frames = get_video_clips(video_name)
             print("Number of clips in the video : ", len(video_clips))
             
-            # initialize I3D model 
+            # Initialize I3D model 
             feature_extractor = i3d_feature_extractor()
             
-            # extract features
+            # Extract features
             rgb_features = []
             for i, clip in enumerate(video_clips):
                 clip = np.array(clip)
@@ -38,10 +44,11 @@ def run_i3d():
                 rgb_features.append(rgb_feature)
                 print("Processed clip : {} / {}".format(i, len(video_clips)))
                 
-            # bag features
+            # Bag features: from n to 32 features per each video
             rgb_features = np.array(rgb_features)
             rgb_feature_bag = interpolate(rgb_features, params.features_per_bag)
             
+            # Save each bag of features as .txt 
             save_path = os.path.join(cfg.I3D_path, name + '.txt')
             np.savetxt(save_path, rgb_feature_bag)
         
