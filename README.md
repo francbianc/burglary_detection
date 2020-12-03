@@ -71,7 +71,7 @@ The experiment 2 dataset was built removing crimes with features too different f
 
   If you use as dataset the entire **UCF_Crimes** dataset, you don't have to put any video in the Input folder, but change *cfg.path_all_videos* in `configuration.py`. This path should refer to the directory of the folder that contains a subfolder per each video category. Make sure the names of all these subfolders are listed in `video_paths.txt`. Then, run the extract codes with the "_server" extension. Results are saved in different folders, located in the directory specified by cfg.path_all_videos, such that all the features of a category are saved in the same folder. 
   
-  The features we extracted using both architectures can be found in the Release section of the repository.
+  The features we extracted using both architectures can be downloaded from the Releases section of the repository.
 
 
 2. **TRAIN**    
@@ -121,6 +121,8 @@ The experiment 2 dataset was built removing crimes with features too different f
   - *cfg.path_all_features*: directory of the folder containing as subfolders features divided by category
   - *cfg.NamesAnn_path*: directory of a .txt file containing the names of the test videos that must be included for the experiment
   Results are saved into a folder, whose name refers to the defined experiment name, that is located in the directory specified by cfg.path_all_features.
+  
+  All the predictions of our model can be downloaded from the Releases section of the repository.
 
 
 4. **AUC - Area Under the Curve**    
