@@ -159,4 +159,4 @@ The experiment 2 dataset was built removing crimes with features too different f
   
 
 --------------------
-### To visualize the results of our experiments, have a look at the "GIF with Anomaly Score" release.
+### To visualize the results of our experiments, have a look at the [GIF with Anomaly Score](https://github.com/francbianc/computer_vision/releases/tag/GIF) release.
